@@ -8,13 +8,24 @@ from ex1_integration import (
     ode_integrate_rk,
     plot_integration_methods
 )
-from ex1_errors import compute_error
+from ex1_errors import compute_error, error
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 import cmc_pylog as pylog
 from cmcpack import Result
+
+
+def display_error(errors, method):
+    err = error(errors, n=1)
+    err_max = error(errors)
+
+    pylog.debug(
+        "Obtained an error of {} using {} method (max={}, len={})".format(
+            err, method, err_max, len(method)
+        )
+    )
 
 
 def exercise1(clargs):
@@ -42,21 +53,31 @@ def exercise1(clargs):
 
     # Euler (1.b)
     euler = euler_integrate(function, x0, time_max, time_step)
+    display_error(euler.state - analytical.state, "Euler")
 
     # ODE (1.c)
     ode = ode_integrate(function, x0, time_max, time_step)
+    display_error(ode.state - analytical.state, "LSODA")
 
     # ODE Runge-Kutta (1.c)
     ode_rk = ode_integrate_rk(function_rk, x0, time_max, time_step)
+    display_error(ode_rk.state - analytical.state, "Runge-Kutta")
 
     # Euler with lower time step (1.d)
-    pylog.warning("Euler with smaller ts must be implemented")
-    euler_time_step = None
+    euler_time_step = 0.05
     euler_ts_small = (
         euler_integrate(function, x0, time_max, euler_time_step)
         if euler_time_step is not None
         else None
     )
+
+    # New analytical time step
+    time_step = 0.05
+    time = np.arange(0, time_max, time_step)  # Time vector
+    x_a = analytic_function(time)
+    analytical = Result(x_a, time) if x_a is not None else None
+
+    display_error(euler_ts_small.state - analytical.state, "Euler small")
 
     # Plot integration results
     plot_integration_methods(

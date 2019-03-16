@@ -33,11 +33,8 @@ def function(x, *_):
     This function should return the derivative x_dot with same shape as x
     (i.e. as a list or an areray)
     """
-    # COMPLETE CODE
-    dxdt = None
-    if dxdt is None:
-        raise NotImplementedError("ODE has not been implemented")
-    return dxdt
+
+    return 2*(5-x)
 
 
 def function_rk(t=None, x=None):

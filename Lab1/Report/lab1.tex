@@ -70,11 +70,27 @@ dependencies.  You can do this by executing the following commands:
   \dot{x} = 2 \cdot (5 - x), \quad x(t=0)=1
 \end{equation}
 
+Since this is a separable differential equation it can be directly solve.
 
-\vspace{0.3\textheight}
+\begin{align*}
+	\frac{dx}{dt} &= 2 \cdot (5-x) \\
+	\frac{1}{5-x} dx &= 2 dt \\
+	\int_{x_0}^x \frac{1}{5-x} dx &= \int_{t_0}^t 2 dt \\
+	-\ln(5-x) + \ln(5-x_0) &= 2t - 2t_0 +C
+\end{align*}
 
+Since the condition at time $t = 0$ is $x=1$ there is $C=0$ and :
+$$x(t) = 5 - 4e^{-2t}$$
 
-\newpage
+The result is shown below.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_analytical.png}
+  \caption{Euler analytical result.}
+  \label{fig:euler_analytical}
+\end{figure}
+
 \subsection*{1.b In some cases, an ODE system may not have an analytical
   solution or it may be difficult to compute. Implement Euler integration in
   \fileref{ex1\_integ\-ration.py::eu\-ler\_int\-eg\-rate()}, % chktex 36
@@ -86,13 +102,17 @@ dependencies.  You can do this by executing the following commands:
   so that the code may be run correctly. \\ As a code template, check out
   \fileref{ex1\_integ\-ration.py::eu\-ler\_exam\-ple()}.}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_integration.png}
+  \caption{Euler integration results.}
+  \label{fig:euler_integration}
+\end{figure}
 
+As shown in figure \ref{fig:euler_integration} the euler integration method gives a good approximation of the real result. By computing the average abosulute error using :
+$$err = \frac{1}{N} \sum_{i=1}^N \lvert f_{method}(i) - f_{analytical}(i) \rvert$$
 
-\vspace{0.3\textheight}
-
-
-
-\clearpage
+with N being the number of state samples, $f_{method}$ is the euler one and $f_{analytical}$ is the analytical function.
 
 \subsection*{1.c Various efficient libraries are available to facilitate ODE
   integration. Compare the Euler method with Lsoda
@@ -105,13 +125,26 @@ dependencies.  You can do this by executing the following commands:
   could do this, choose an appropriate method and explain why), number of time
   steps, and include a figure comparing the integration methods. }
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_tests_solver.png}
+  \caption{Compare different solver results.}
+  \label{fig:ex1_tests_solver}
+\end{figure}
 
+Errors results :
 
-\vspace{0.3\textheight}
-
-
-
-\clearpage
+\begin{table}[H]
+\centering
+\caption{Error comparison between each methods.}
+	\begin{tabular}{lccc}
+		\hline
+		\textbf{Method} & \textbf{Average error} & \textbf{Error max} & \textbf{\# timesteps} \\ \hline \hline
+		Euler & $\sim 0.085$ & $\sim 0.357$ & $25$ \\
+		LSODA & $\sim 1.17 e-8$ & $\sim 5.79 e-8$ & Adaptative \\
+		Runge-Kutta & $\sim 6.41 e-8$ & $\sim 1.43e-7$ & $25$ \\ \hline
+	\end{tabular}
+\end{table}
 
 \subsection*{1.d As mentioned in the course, the comparison of question 1.c is
   not fair for the Euler method.  Briefly say why. Choose another number of time
@@ -120,11 +153,31 @@ dependencies.  You can do this by executing the following commands:
   figure comparing the two integration methods. Briefly discuss which
   integration method is best.}
 
+The Runge-Kutta integration method computes the derivatives 4 times at each iteration. A fair comparison is therefore to make 4 Euler steps for each Runge-Kutta step. So for the next comparison, the timestep for Euler method is of $0.05$ s.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_small_ts.png}
+  \caption{Compare different solver results.}
+  \label{fig:ex1_tests_solver}
+\end{figure}
 
-\vspace{0.3\textheight}
+Errors results :
 
+\begin{table}[H]
+\centering
+\caption{Error comparison between each methods.}
+	\begin{tabular}{lccc}
+		\hline
+		\textbf{Method} & \textbf{Average error} & \textbf{Error max} & \textbf{\# timesteps} \\ \hline \hline
+		Euler & $\sim 0.085$ & $\sim 0.357$ & $25$ \\
+		LSODA & $\sim 1.17 e-8$ & $\sim 5.79 e-8$ & Adaptative \\
+		Runge-Kutta & $\sim 6.41 e-8$ & $\sim 1.43e-7$ & $25$ (100) \\
+		Euler small & $\sim 0.020$ & $\sim 0.077$ & $100$ \\ \hline
+	\end{tabular}
+\end{table}
 
+The error is still much smaller using Runge-Kutta time steps (ode45), even if approximately the same number of derivatives are computed with both methods (100 times for Euler, 25 · 4 = 100 times for Runge-Kutta).
 
 \clearpage
 

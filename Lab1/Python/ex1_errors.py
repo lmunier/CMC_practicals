@@ -15,9 +15,14 @@ def error(errors, n=0):
     compare them.
 
     """
-    # COMPLETE CODE
-    biolog.warning("Error computation code must be completed")
-    return 1
+    err_abs = np.abs(errors)
+
+    if n == 0:
+        err = max(err_abs)
+    else:
+        err = np.sum([e ** n for e in err_abs]) / len(err_abs)
+
+    return err
 
 
 def plot_error(dt_list, err, figure="Average_error", label="Error"):

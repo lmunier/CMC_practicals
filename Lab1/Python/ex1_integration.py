@@ -73,9 +73,12 @@ def euler_integrate(fun, x0, time_max, time_step):
     """
     time = np.arange(0, time_max, time_step)
     x = np.zeros([len(time), len(x0)])
-    # COMPLETE CODE
-    pylog.warning("Euler integration must be implemented")
-    return None
+
+    x[0] = x0
+    for i, ti in enumerate(time[:-1]):
+        x[i+1] = x[i] + fun(x[i], ti)*time_step
+
+    return Result(x, time)
 
 
 def ode_integrate(fun, x0, time_max, time_step):
@@ -92,9 +95,8 @@ def ode_integrate(fun, x0, time_max, time_step):
     found above (i.e. Result(x, time))
     """
     time = np.arange(0, time_max, time_step)
-    # COMPLETE CODE
-    pylog.warning("ODE integration must be implemented")
-    return None
+    x = odeint(fun, x0, time)
+    return Result(x, time)
 
 
 def ode_integrate_rk(fun_rk, x0, time_max, time_step):
@@ -118,9 +120,16 @@ def ode_integrate_rk(fun_rk, x0, time_max, time_step):
     found above (i.e. Result(x, time))
     """
     time = np.arange(0, time_max, time_step)
-    # COMPLETE CODE
-    pylog.warning("ODE integration with RK must be implemented")
-    return None
+    x = np.zeros([len(time), len(x0)])
+
+    solver = ode(fun_rk)
+    solver.set_integrator('dopri5')
+    solver.set_initial_value(x0, time[0])
+
+    for i, ti in enumerate(time):
+        x[i] = solver.integrate(ti)
+
+    return Result(x, time)
 
 
 def plot_integration_methods(**kwargs):
