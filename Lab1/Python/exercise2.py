@@ -25,21 +25,22 @@ def exercise2(clargs):
     pylog.info("Running exercise 2")
 
     # System definition
-    pylog.warning("Proper matrix A must be implemented")
-    A = np.array([[1, 0], [0, 1]])
+    A = np.array([[1, 4], [-4, -2]])
     time_total = 10
     time_step = 0.01
     x0, time = [0, 1], np.arange(0, time_total, time_step)
 
     # Normal run
-    pylog.warning("System integration must be implemented")
-    # integration(x0, time, A, "example")
+    integration(x0, time, A, "Normal run")
 
     # Stable point (Optional)
-    pylog.warning("Stable point integration must be implemented")
+    x0 = [0, 0]
+    integration(x0, time, A, "x0 Fixed point")
 
     # Periodic
-    pylog.warning("Periodic system must be implemented")
+    A = np.array([[2, 4], [-4, -2]])
+    x0 = [1, 0]
+    integration(x0, time, A, "Periodic")
 
     # Plot
     if not clargs.save_figures:

@@ -29,8 +29,8 @@
   corresponding code has been implemented correctly.}
 
 \begin{figure}[ht]
-  \centering \includegraphics[width=0.5\textwidth]{figures/files}
-  \caption{\label{fig:files} Exercise files dependencies. In this lab, you will
+  	\centering \includegraphics[width=0.5\textwidth]{figures/files}
+  	\caption{\label{fig:files} Exercise files dependencies. In this lab, you will
     be modifying \fileref{exercise1.py}, \fileref{ex1\_functions.py},
     \fileref{ex1\_integration.py},\fileref{ex1\_errors.py} and
     \fileref{exercise2.py}. It is recommended to check out
@@ -46,14 +46,14 @@ In order to run the exercises for Lab1 make sure to update the
 dependencies.  You can do this by executing the following commands:
 
 \begin{itemize}
-\item Open the terminal
-\item Navigate to the exercise repository (Make sure you are in the
-  root of the folder)
-\item Execute,
-  \begin{itemize}
-  	\item \$ git pull
-  	\item \$ pip install -r requirements.txt
-  \end{itemize}
+	\item Open the terminal
+	\item Navigate to the exercise repository (Make sure you are in the root of the folder)
+	\item Execute,
+	
+  	\begin{itemize}
+  		\item \$ git pull
+  		\item \$ pip install -r requirements.txt
+  	\end{itemize}
 \end{itemize}
 
 \newpage
@@ -66,8 +66,8 @@ dependencies.  You can do this by executing the following commands:
   and run \fileref{exercise1.py} to plot the result.}
 
 \begin{equation}
-  \label{eq:ode-1}
-  \dot{x} = 2 \cdot (5 - x), \quad x(t=0)=1
+  	\label{eq:ode-1}
+  	\dot{x} = 2 \cdot (5 - x), \quad x(t=0)=1
 \end{equation}
 
 Since this is a separable differential equation it can be directly solve.
@@ -85,10 +85,10 @@ $$x(t) = 5 - 4e^{-2t}$$
 The result is shown below.
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_analytical.png}
-  \caption{Euler analytical result.}
-  \label{fig:euler_analytical}
+  	\centering
+  	\includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_analytical.png}
+  	\caption{Euler analytical result.}
+  	\label{fig:euler_analytical}
 \end{figure}
 
 \subsection*{1.b In some cases, an ODE system may not have an analytical
@@ -103,10 +103,10 @@ The result is shown below.
   \fileref{ex1\_integ\-ration.py::eu\-ler\_exam\-ple()}.}
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_integration.png}
-  \caption{Euler integration results.}
-  \label{fig:euler_integration}
+  	\centering
+  	\includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_integration.png}
+  	\caption{Euler integration results.}
+  	\label{fig:euler_integration}
 \end{figure}
 
 As shown in figure \ref{fig:euler_integration} the euler integration method gives a good approximation of the real result. By computing the average abosulute error using :
@@ -126,10 +126,10 @@ with N being the number of state samples, $f_{method}$ is the euler one and $f_{
   steps, and include a figure comparing the integration methods. }
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_tests_solver.png}
-  \caption{Compare different solver results.}
-  \label{fig:ex1_tests_solver}
+  	\centering
+  	\includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_tests_solver.png}
+  	\caption{Compare different solver results.}
+  	\label{fig:ex1_tests_solver}
 \end{figure}
 
 Errors results :
@@ -156,10 +156,10 @@ Errors results :
 The Runge-Kutta integration method computes the derivatives 4 times at each iteration. A fair comparison is therefore to make 4 Euler steps for each Runge-Kutta step. So for the next comparison, the timestep for Euler method is of $0.05$ s.
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_small_ts.png}
-  \caption{Compare different solver results.}
-  \label{fig:ex1_tests_solver}
+	\centering
+  	\includegraphics[width=0.75\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_euler_small_ts.png}
+  	\caption{Compare different solver results.}
+  	\label{fig:ex1_tests_solver}
 \end{figure}
 
 Errors results :
@@ -179,8 +179,6 @@ Errors results :
 
 The error is still much smaller using Runge-Kutta time steps (ode45), even if approximately the same number of derivatives are computed with both methods (100 times for Euler, 25 · 4 = 100 times for Runge-Kutta).
 
-\clearpage
-
 \subsection*{1.e Test the role of the step size by plotting the integration
   error as a function of step size. You can use
   \fileref{ex1\_errors.py::com\-pute\_err\-or()} % chktex 36
@@ -190,13 +188,36 @@ The error is still much smaller using Runge-Kutta time steps (ode45), even if ap
   step sizes?  Include here a graph showing the error against the step
   size. Explain which error measure you used (there are several options)}
 
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_L1_errors.png}
+  		\caption{Compare different L1 errors solver.}
+  		\label{fig:ex1_L1_errors}
+	\end{figure}
 
+	$$err_{L1} = \frac{1}{N} \sum_{i=1}^N \lvert f_{method}(i) - f_{analytical}(i) \rvert$$
+\end{minipage}
+~
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+  		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_L2_errors.png}
+  		\caption{Compare different L2 errors solver.}
+  		\label{fig:ex1_L2_errors}
+	\end{figure}
 
-\vspace{0.3\textheight}
+	$$err_{L2} = \frac{1}{N} \sum_{i=1}^N \left( f_{method}(i) - f_{analytical}(i) \right)^2$$
+\end{minipage}
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.49\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex1_Linf_errors.png}
+  \caption{Compare different Linf errors solver.}
+  \label{fig:ex1_Linf_errors}
+\end{figure}
 
-
-\clearpage
+$$err_{L1} = \max_i \left(\lvert f_{method}(i) - f_{analytical}(i) \rvert\right))$$
 
 \section*{Question 2: Stability analysis}
 
@@ -216,19 +237,77 @@ The error is still much smaller using Runge-Kutta time steps (ode45), even if ap
   \end{pmatrix}
 \end{equation}
 
+Fixed point $\vec{x}_0$ :
 
+\begin{align*}
+	\dot{\vec{x}}_0 = \vec{0} &= 
+	\begin{pmatrix}
+		\begin{array}{rr}
+			1 & 4 \\ -4 & -2
+		\end{array}
+	\end{pmatrix} \vec{x}_0 \\
+	&\Rightarrow \vec{x}_0 = 
+	\begin{pmatrix}
+		0 \\ 0
+	\end{pmatrix}
+\end{align*}
 
-\vspace{0.3\textheight}
+Eigenvalues $\lambda$ :
 
+\begin{align*}
+	\det{A - \lambda I} &= 0 \\
+	\begin{vmatrix}
+		1 - \lambda & 4 \\ -4 & -2 - \lambda
+	\end{vmatrix} &= 0 \\
+	(1-\lambda)(-2-\lambda) + 16 &= 0 \\
+	\lambda^2 + \lambda + 14 &= 0 \\
+	\Rightarrow \lambda_{\pm} = -\frac{1}{2} \pm \frac{\sqrt{-55}}{2} &= -\frac{1}{2} \pm \frac{\sqrt{55}}{2}i
+\end{align*}
 
-
-\clearpage
+\textbf{The fixed point is stable} because the real part of both eigenvalues are smaller than 0. Since we have an imaginary part, the fixed point exhibits \textbf{underdamped oscillations}.
 
 \subsection*{2.b Perform numerical integration from different initial conditions
   to verify the stability properties. See \fileref{exercise2.py::exercise2()}
   for implementation. Include some figures with these different time evolutions
   and their corresponding phase portrait and explain their roles.}
 
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex2_normal_state.png}
+  		\caption{Normal run, x0 = [0,1]. State part.}
+  		\label{fig:ex2_normal_state}
+	\end{figure}
+\end{minipage}
+~
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+  		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex2_normal_phase.png}
+  		\caption{Normal run, x0 = [0,1]. Phase part.}
+  		\label{fig:ex2_normal_phase}
+	\end{figure}
+\end{minipage}
+
+The damped oscillations correspond to an inward spiral in the phase plane. The quiver plot is a vector plot that shows the general behavior of the system in the phase plane.
+
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex2_fixed_point_state.png}
+  		\caption{Fixed point x0 = [0, 0] state behavior.}
+  		\label{fig:ex2_fixed_point_state}
+	\end{figure}
+\end{minipage}
+~
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+  		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex2_fixed_point_phase.png}
+  		\caption{Fixed point x0 = [0, 0] phase behavior.}
+  		\label{fig:ex2_fixed_point_phase}
+	\end{figure}
+\end{minipage}
 
 \clearpage
 
@@ -236,12 +315,54 @@ The error is still much smaller using Runge-Kutta time steps (ode45), even if ap
   becomes periodic for some initial conditions. Say which value and include a
   time evolution figure.}
 
+To have a periodic time evolution behavior, the eigenvalues of the fixed point have to be complexe without any real parts. To do so, the A matrix is changed to have a more general one and find the new values :
 
+$$A = \begin{pmatrix}
+	\begin{array}{rr}
+		a & 4 \\ -4 & -2
+	\end{array}
+\end{pmatrix}
+\hspace{2cm} \text{where } a \in \mathbb{R}$$
 
-\vspace{0.3\textheight}
+Eigenvalues :
 
+\begin{align*}
+	\det{A - \lambda I} = (a-\lambda)(-2-\lambda) + 16 &= 0 \\
+	-2a + 2\lambda -a\lambda + \lambda^2 + 16 &= 0 \\
+	\lambda^2 + (2-a) \lambda + 16 - 2a &= 0 \\
+	\Rightarrow \lambda_{\pm} &= \frac{a-2 \pm \sqrt{(2-a)^2 -4(16-2a)}}{2}
+\end{align*}
 
+To have only complexe eigenvalues, a should be egal to 2 :
+$$\Rightarrow\lambda_{\pm} = \pm \frac{-4\cdot 12}{2} = \pm \sqrt{12}i$$
 
+Results with the new matrix :
+
+$$A = \begin{pmatrix}
+	\begin{array}{rr}
+		2 & 4 \\ -4 & -2
+	\end{array}
+\end{pmatrix}$$
+
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex2_periodic_state.png}
+  		\caption{Periodic x0 = [1, 0] state behavior.}
+  		\label{fig:ex2_periodic_state}
+	\end{figure}
+\end{minipage}
+~
+\begin{minipage}[t]{0.49\textwidth}
+	\begin{figure}[H]
+  		\centering
+  		\includegraphics[width=\textwidth,trim={0 1.25cm 0 0},clip]{figures/ex2_periodic_phase.png}
+  		\caption{Periodic x0 = [1, 0] phase behavior.}
+  		\label{fig:ex2_periodic_phase}
+	\end{figure}
+\end{minipage}
+
+As shown in the figures \ref{fig:ex2_periodic_phase} and \ref{fig:ex2_periodic_state}, the same initial state x0 = [1, 0] as the first example gives a periodic behavior for the system. This is a new system with oscillatory behavior without damping.
 
 \end{document}
 %%% Local Variables:

@@ -72,22 +72,38 @@ def exercise1(clargs):
     )
 
     # New analytical time step
-    time_step = 0.05
-    time = np.arange(0, time_max, time_step)  # Time vector
-    x_a = analytic_function(time)
-    analytical = Result(x_a, time) if x_a is not None else None
+    time_step_small = 0.05
+    time_small = np.arange(0, time_max, time_step_small)  # Time vector
+    x_a_small = analytic_function(time_small)
+    analytical_small = Result(x_a_small, time_small) if x_a_small is not None else None
 
-    display_error(euler_ts_small.state - analytical.state, "Euler small")
+    display_error(euler_ts_small.state - analytical_small.state, "Euler small")
 
     # Plot integration results
     plot_integration_methods(
-        analytical=analytical, euler=euler,
+        analytical=analytical_small, euler=euler,
         ode=ode, ode_rk=ode_rk, euler_ts_small=euler_ts_small,
-        euler_timestep=time_step, euler_timestep_small=euler_time_step
+        euler_timestep=time_step_small, euler_timestep_small=euler_time_step
     )
 
     # Error analysis (Exercise 1.e)
     pylog.warning("Error analysis must be implemented")
+    dt_list = np.logspace(-3, 0, 20)  # List of timesteps (powers of 10)
+    integration_errors = [["L1", 1], ["L2", 2], ["Linf", 0]]
+    methods = [
+        ["Euler", euler_integrate, function],
+        ["Lsoda", ode_integrate, function],
+        ["RK", ode_integrate_rk, function_rk]
+    ]
+    for error_name, error_index in integration_errors:
+        for name, integration_function, f in methods:
+            compute_error(
+                f, analytic_function, integration_function, x0, dt_list,
+                time_max=time_max,
+                figure=error_name,
+                label=name,
+                n=error_index
+            )
 
     # Show plots of all results
     if not clargs.save_figures:
